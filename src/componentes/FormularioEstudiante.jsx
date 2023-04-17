@@ -4,13 +4,15 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
     const [id, setId] = useState("");
     const [nombre, setNombre] = useState("");
     const [semestre, setSemestre] = useState("1");
+    const [facultad, setFacultad] = useState("Ingeniería");
 
     const guardarEstudiante = (event) => {
         event.preventDefault();
         let estudiante = {
             id: id,
             nombre: nombre,
-            semestre: semestre
+            semestre: semestre,
+            facultad: facultad
         }
         if ((estudiante.id.toString().length >= 6) && (estudiante.id.toString().length <= 10)) {
             if (estudiante.nombre.length >= 3) {
@@ -18,6 +20,7 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
                 setId("");
                 setNombre("");
                 setSemestre("");
+                setFacultad("");
             }
             else {
                 alert("Nombre inválido")
@@ -33,6 +36,7 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
         let nuevoId = aModificar.id
         let nuevoNombre = aModificar.nombre
         let nuevoSemestre = aModificar.semestre
+        let nuevaFacultad = aModificar.facultad
 
         if (id !== '') {
 
@@ -47,10 +51,15 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
             nuevoSemestre = semestre
         }
 
+        if (facultad !== '') {
+            nuevaFacultad = facultad
+        }
+
         let estudiante = {
             id: nuevoId,
             nombre: nuevoNombre,
-            semestre: nuevoSemestre
+            semestre: nuevoSemestre,
+            facultad: nuevaFacultad
         }
 
         if ((estudiante.id.toString().length >= 6) && (estudiante.id.toString().length <= 10)) {
@@ -96,6 +105,17 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
                             <option value="10">10</option>
                         </select>
                     </div> <br/>
+
+                    <div>
+                        <label htmlFor="facultad">Facultad</label> <br/>
+                        <select className="form-select" aria-label="Disabled select example" id="facultad" value={facultad} onChange={(event) => setFacultad(event.target.value)}>
+                            <option value="Ingeniería">Ingeniería</option>
+                            <option value="Medicina">Medicina</option>
+                            <option value="Comunicación">Comunicación</option>
+                            <option value="Educación">Educación</option>
+                            <option value="Derecho">Derecho</option>
+                        </select>
+                    </div> <br/>
     
                     <button type="submit" className="btn btn-primary"> Registrar </button>
                 </form>
@@ -116,7 +136,7 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
 
                      <div>
                         <label htmlFor="semestre">Semestre</label> <br/>
-                        <select id="semestre" value={semestre} onChange={(event) => setSemestre(event.target.value)}>
+                        <select className="form-select" aria-label="Disabled select example" id="semestre" value={semestre} onChange={(event) => setSemestre(event.target.value)}>
                             <option value="" selected disabled hidden>{ aModificar.semestre } </option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -128,6 +148,18 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
                             <option value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
+                        </select>
+                    </div> <br/>
+
+                    <div>
+                        <label htmlFor="facultad">Facultad</label> <br/>
+                        <select className="form-select" aria-label="Disabled select example" id="facultad" value={facultad} onChange={(event) => setFacultad(event.target.value)}>
+                            <option value="" selected disabled hidden>{ aModificar.facultad } </option>
+                            <option value="Ingeniería">Ingeniería</option>
+                            <option value="Medicina">Medicina</option>
+                            <option value="Comunicación">Comunicación</option>
+                            <option value="Educación">Educación</option>
+                            <option value="Derecho">Derecho</option>
                         </select>
                     </div> <br/>
     
