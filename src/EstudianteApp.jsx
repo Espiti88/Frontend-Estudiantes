@@ -58,6 +58,7 @@ export const EstudiantesApp = () => {
                         estudiante.id = nuevoEstudiante.id
                         estudiante.nombre = nuevoEstudiante.nombre
                         estudiante.semestre = nuevoEstudiante.semestre
+                        estudiante.facultad = nuevoEstudiante.facultad
                     }
                     return(estudiante)
                 })
