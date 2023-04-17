@@ -83,7 +83,7 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
 
                     <div>
                         <label htmlFor="semestre">Semestre</label> <br/>
-                        <select id="semestre" value={semestre} onChange={(event) => setSemestre(event.target.value)}>
+                        <select className="form-select" aria-label="Disabled select example" id="semestre" value={semestre} onChange={(event) => setSemestre(event.target.value)}>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
