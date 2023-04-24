@@ -1,7 +1,9 @@
 export const TablaEstudiante = ({listaEstudiantes, editar, eliminar, filtrar}) => {
-    
-    listaEstudiantes = listaEstudiantes.filter((estudiante) => estudiante.nombre.includes(filtrar.nombre) && estudiante.facultad.includes(filtrar.facultad))
 
+    if (filtrar){
+        listaEstudiantes = listaEstudiantes.filter((estudiante) => estudiante.nombre.includes(filtrar.nombre) && estudiante.facultad.includes(filtrar.facultad))
+    }
+    
     return (
         <>
             <table className="table">

@@ -54,11 +54,11 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
             nuevoNombre = nombre
         }
 
-        if (nombre !== '') {
+        if (semestre !== '') {
             nuevoSemestre = semestre
         }
 
-        if (nombre !== '') {
+        if (facultad !== '') {
             nuevaFacultad = facultad
         }
 

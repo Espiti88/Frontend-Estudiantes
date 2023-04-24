@@ -6,7 +6,7 @@ import { BarraBusqueda } from "./componentes/BarraBusqueda";
 export const EstudiantesApp = () => {
 
     const [estudiantes, setEstudiantes] = useState([]);
-    const [aModificar, setEstudiante] = useState({});
+    const [aModificar, setAModificar] = useState({});
     const [modo, setModo] = useState('Registrar');
     const [filtro, setFiltro] = useState('');
 
@@ -38,7 +38,7 @@ export const EstudiantesApp = () => {
 
     const editarEstudiante = (estu) => {
         setModo('Modificar')
-        setEstudiante(estu)
+        setAModificar(estu)
     }
 
     const modEstudiante = (viejoEstudiante, nuevoEstudiante) => {
