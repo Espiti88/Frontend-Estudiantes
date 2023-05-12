@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FormularioEstudiante } from "./componentes/FormularioEstudiante";
 import { TablaEstudiante } from "./componentes/TablaEstudiante";
 import { BarraBusqueda } from "./componentes/BarraBusqueda";
+import { getEstudiantes } from "./peticiones/getEstudiantes";
+import { postEstudiante } from "./peticiones/postEstudiante";
 
 export const EstudiantesApp = () => {
 
@@ -9,6 +11,15 @@ export const EstudiantesApp = () => {
     const [aModificar, setAModificar] = useState({});
     const [modo, setModo] = useState('Registrar');
     const [filtro, setFiltro] = useState('');
+
+    const cargueEstudiantes = async () => {
+        const datos = await getEstudiantes()
+        setEstudiantes(datos)
+    }
+
+    useEffect(() =>{
+        cargueEstudiantes()
+    },{})
 
     const agregarEstudiante = (estudiante) => {
         let verificado = true
@@ -21,7 +32,8 @@ export const EstudiantesApp = () => {
         })
         
         if ( verificado ){
-            setEstudiantes([...estudiantes, estudiante])
+            postEstudiante(estudiante)
+            cargueEstudiantes()
         }
     }
 

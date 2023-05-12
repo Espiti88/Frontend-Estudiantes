@@ -7,7 +7,6 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
     const [facultad, setFacultad] = useState("");
 
     const guardarEstudiante = (event) => {
-        event.preventDefault();
         let estudiante = {
             id: id,
             nombre: nombre,
