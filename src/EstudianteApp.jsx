@@ -5,6 +5,7 @@ import { BarraBusqueda } from "./componentes/BarraBusqueda";
 import { getEstudiantes } from "./peticiones/getEstudiantes";
 import { postEstudiante } from "./peticiones/postEstudiante";
 import { deleteEstudiante } from "./peticiones/deleteEstudiante";
+import { putEstudiante } from "./peticiones/putEstudiante";
 
 export const EstudiantesApp = () => {
 
@@ -53,30 +54,9 @@ export const EstudiantesApp = () => {
         setAModificar(estu)
     }
 
-    const modEstudiante = (viejoEstudiante, nuevoEstudiante) => {
-        let verificado = true
-        estudiantes.map((estudiante) => {
-            if ( nuevoEstudiante.id === estudiante.id && estudiante.id !== viejoEstudiante.id){
-                alert('Ese ID ya le pertenece a otro estudiante')
-                verificado = false
-            }
-        })
-
-        if (verificado){
-            setEstudiantes(
-                estudiantes.map((estudiante) => {
-    
-                    if(viejoEstudiante.id === estudiante.id){
-                        estudiante.id = nuevoEstudiante.id
-                        estudiante.nombre = nuevoEstudiante.nombre
-                        estudiante.semestre = nuevoEstudiante.semestre
-                        estudiante.facultad = nuevoEstudiante.facultad
-                    }
-                    return(estudiante)
-                })
-            )
-        }
-        
+    const modEstudiante = (nuevoEstudiante) => {
+        putEstudiante(nuevoEstudiante)
+        cargueEstudiantes()
         setModo('Registrar')
     }
 
