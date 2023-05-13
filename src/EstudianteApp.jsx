@@ -4,6 +4,7 @@ import { TablaEstudiante } from "./componentes/TablaEstudiante";
 import { BarraBusqueda } from "./componentes/BarraBusqueda";
 import { getEstudiantes } from "./peticiones/getEstudiantes";
 import { postEstudiante } from "./peticiones/postEstudiante";
+import { deleteEstudiante } from "./peticiones/deleteEstudiante";
 
 export const EstudiantesApp = () => {
 
@@ -42,10 +43,9 @@ export const EstudiantesApp = () => {
     }
 
     const eliminarEstudiante = (estudiante) => {
-        setEstudiantes(
-
-            estudiantes.filter((estu) => estu.id !== estudiante.id)
-        )
+        deleteEstudiante(estudiante.id)
+        cargueEstudiantes()
+        window.location.reload()
     }
 
     const editarEstudiante = (estu) => {

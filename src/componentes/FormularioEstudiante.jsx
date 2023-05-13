@@ -38,7 +38,6 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
     }
 
     const modificarEstudiante = (event) => {
-        event.preventDefault();
 
         let nuevoId = aModificar.id
         let nuevoNombre = aModificar.nombre
