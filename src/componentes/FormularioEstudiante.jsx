@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react"
 
 export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) => {
-    const [id, setId] = useState("");
     const [nombre, setNombre] = useState("");
     const [semestre, setSemestre] = useState("");
     const [facultad, setFacultad] = useState("");
+    const [programa, setPrograma] = useState("");
 
     const guardarEstudiante = (event) => {
         let estudiante = {
-            id: id,
             nombre: nombre,
             semestre: semestre,
-            facultad: facultad
+            facultad: facultad,
+            programa: programa
         }
-        if ((estudiante.id.toString().length < 6) || (estudiante.id.toString().length > 10)) {
-            alert("ID inválido")
-            return
-        }
+
         if (estudiante.nombre.length < 3) {
             alert("Nombre inválido")
             return
@@ -29,24 +26,24 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
             alert("Seleccione una facultad")
             return
         }
+        if (estudiante.programa === ""){
+            alert("Ingrese un programa")
+            return
+        }
 
         agregar(estudiante)
-        setId("");
         setNombre("");
         setSemestre("");
         setFacultad("");
+        setPrograma("")
     }
 
     const modificarEstudiante = (event) => {
 
-        let nuevoId = aModificar.id
         let nuevoNombre = aModificar.nombre
         let nuevoSemestre = aModificar.semestre
         let nuevaFacultad = aModificar.facultad
-
-        if (id !== '') {
-            nuevoId = id
-        }
+        let nuevoPrograma = aModificar.programa
 
         if (nombre !== '') {
             nuevoNombre = nombre
@@ -60,40 +57,38 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
             nuevaFacultad = facultad
         }
 
-        let estudiante = {
-            id: nuevoId,
-            nombre: nuevoNombre,
-            semestre: nuevoSemestre,
-            facultad: nuevaFacultad
+        if (programa !== '') {
+            nuevoPrograma = programa
         }
 
-        if ((estudiante.id.toString().length < 6) || (estudiante.id.toString().length > 10)) {
-            alert("ID inválido")
-            return
+        let estudiante = {
+            id: aModificar.id,
+            nombre: nuevoNombre,
+            semestre: nuevoSemestre,
+            facultad: nuevaFacultad,
+            programa: nuevoPrograma
         }
+
         if (estudiante.nombre.length < 3) {
             alert("Nombre inválido")
             return
         }
 
         modificar(estudiante)
-        setId("");
         setNombre("");
         setSemestre("");
         setFacultad("");
+        setPrograma("");
     }
 
     if (modo === 'Registrar') {
         return (
             <>
                 <form onSubmit={guardarEstudiante}>
-                    <div className="form-group ">
-                        <label htmlFor="id">ID Estudiante</label>
-                        <input type="number" className="form-control" id="id" placeholder={'id'} value={id} onChange={(event) => setId(event.target.value)} />
-                    </div> <br />
+
                     <div className="form-group">
                         <label htmlFor="nombre">Nombre</label>
-                        <input type="text" className="form-control" id="nombre" placeholder={'nombre'} value={nombre} onChange={(event) => setNombre(event.target.value)} />
+                        <input type="text" className="form-control" id="nombre" placeholder={'Nombre'} value={nombre} onChange={(event) => setNombre(event.target.value)} />
                     </div> <br/>
 
                     <div>
@@ -124,6 +119,11 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
                             <option value="Derecho">Derecho</option>
                         </select>
                     </div> <br/>
+
+                    <div className="form-group">
+                        <label htmlFor="programa">Programa</label>
+                        <input type="text" className="form-control" id="programa" placeholder={'Programa'} value={programa} onChange={(event) => setPrograma(event.target.value)} />
+                    </div> <br/>
     
                     <button type="submit" className="btn btn-primary"> Registrar </button>
                 </form>
@@ -133,10 +133,7 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
         return (
             <>
                 <form onSubmit={modificarEstudiante}>
-                    <div className="form-group ">
-                        <label htmlFor="id">ID Estudiante</label>
-                        <input type="id" className="form-control" id="id" placeholder={aModificar.id} value={id} onChange={(event) => setId(event.target.value)} />
-                    </div> <br />
+                
                     <div className="form-group">
                         <label htmlFor="nombre">Nombre</label>
                         <input type="text" className="form-control" id="nombre" placeholder={aModificar.nombre} value={nombre} onChange={(event) => setNombre(event.target.value)} />
@@ -169,6 +166,11 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
                             <option value="Educación">Educación</option>
                             <option value="Derecho">Derecho</option>
                         </select>
+                    </div> <br/>
+
+                    <div className="form-group">
+                        <label htmlFor="programa">Programa</label>
+                        <input type="text" className="form-control" id="programa" placeholder={aModificar.programa} value={programa} onChange={(event) => setPrograma(event.target.value)} />
                     </div> <br/>
     
                     <button type="submit" className="btn btn-info"> Modificar </button>

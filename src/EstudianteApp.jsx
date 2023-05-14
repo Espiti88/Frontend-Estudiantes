@@ -25,19 +25,9 @@ export const EstudiantesApp = () => {
     },[])
 
     const agregarEstudiante = (estudiante) => {
-        let verificado = true
-
-        estudiantes.map((estu) => {
-            if ( estu.id === estudiante.id){
-                alert('Ese ID ya le pertenece a otro estudiante')
-                verificado = false
-            }
-        })
         
-        if ( verificado ){
-            postEstudiante(estudiante)
-            cargueEstudiantes()
-        }
+        postEstudiante(estudiante)
+        cargueEstudiantes()
     }
 
     const filtarEstudiantes = async (facultad, cantidad) =>{
