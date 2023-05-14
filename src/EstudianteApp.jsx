@@ -6,6 +6,7 @@ import { getEstudiantes } from "./peticiones/getEstudiantes";
 import { postEstudiante } from "./peticiones/postEstudiante";
 import { deleteEstudiante } from "./peticiones/deleteEstudiante";
 import { putEstudiante } from "./peticiones/putEstudiante";
+import { buscarEstudiantes } from "./peticiones/buscarEstudiantes";
 
 export const EstudiantesApp = () => {
 
@@ -21,7 +22,7 @@ export const EstudiantesApp = () => {
 
     useEffect(() =>{
         cargueEstudiantes()
-    },{})
+    },[])
 
     const agregarEstudiante = (estudiante) => {
         let verificado = true
@@ -39,8 +40,10 @@ export const EstudiantesApp = () => {
         }
     }
 
-    const modLista = (terminoBusqueda) =>{
-        setFiltro(terminoBusqueda)
+    const filtarEstudiantes = async (facultad, cantidad) =>{
+        const datos = await buscarEstudiantes(facultad, cantidad)
+        setFiltro(datos)
+        console.log(datos)
     }
 
     const eliminarEstudiante = (estudiante) => {
@@ -72,7 +75,7 @@ export const EstudiantesApp = () => {
             /> <br/>
 
             <BarraBusqueda
-                filtrar = {(termino) => {modLista(termino)} }
+                filtrar = {(facultad, cantidad) => {filtarEstudiantes(facultad, cantidad)} }
             /> <br/>
 
             <TablaEstudiante 

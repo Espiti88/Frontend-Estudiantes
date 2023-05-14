@@ -76,7 +76,7 @@ export const FormularioEstudiante = ({ agregar, modificar, aModificar, modo }) =
             return
         }
 
-        modificar(aModificar, estudiante)
+        modificar(estudiante)
         setId("");
         setNombre("");
         setSemestre("");
