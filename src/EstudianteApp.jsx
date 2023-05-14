@@ -4,6 +4,9 @@ import { TablaEstudiante } from "./componentes/TablaEstudiante";
 import { BarraBusqueda } from "./componentes/BarraBusqueda";
 import { getEstudiantes } from "./peticiones/getEstudiantes";
 import { postEstudiante } from "./peticiones/postEstudiante";
+import { deleteEstudiante } from "./peticiones/deleteEstudiante";
+import { putEstudiante } from "./peticiones/putEstudiante";
+import { buscarEstudiantes } from "./peticiones/buscarEstudiantes";
 
 export const EstudiantesApp = () => {
 
@@ -19,7 +22,7 @@ export const EstudiantesApp = () => {
 
     useEffect(() =>{
         cargueEstudiantes()
-    },{})
+    },[])
 
     const agregarEstudiante = (estudiante) => {
         let verificado = true
@@ -37,15 +40,16 @@ export const EstudiantesApp = () => {
         }
     }
 
-    const modLista = (terminoBusqueda) =>{
-        setFiltro(terminoBusqueda)
+    const filtarEstudiantes = async (facultad, cantidad) =>{
+        const datos = await buscarEstudiantes(facultad, cantidad)
+        setFiltro(datos)
+        console.log(datos)
     }
 
     const eliminarEstudiante = (estudiante) => {
-        setEstudiantes(
-
-            estudiantes.filter((estu) => estu.id !== estudiante.id)
-        )
+        deleteEstudiante(estudiante.id)
+        cargueEstudiantes()
+        window.location.reload()
     }
 
     const editarEstudiante = (estu) => {
@@ -53,30 +57,9 @@ export const EstudiantesApp = () => {
         setAModificar(estu)
     }
 
-    const modEstudiante = (viejoEstudiante, nuevoEstudiante) => {
-        let verificado = true
-        estudiantes.map((estudiante) => {
-            if ( nuevoEstudiante.id === estudiante.id && estudiante.id !== viejoEstudiante.id){
-                alert('Ese ID ya le pertenece a otro estudiante')
-                verificado = false
-            }
-        })
-
-        if (verificado){
-            setEstudiantes(
-                estudiantes.map((estudiante) => {
-    
-                    if(viejoEstudiante.id === estudiante.id){
-                        estudiante.id = nuevoEstudiante.id
-                        estudiante.nombre = nuevoEstudiante.nombre
-                        estudiante.semestre = nuevoEstudiante.semestre
-                        estudiante.facultad = nuevoEstudiante.facultad
-                    }
-                    return(estudiante)
-                })
-            )
-        }
-        
+    const modEstudiante = (nuevoEstudiante) => {
+        putEstudiante(nuevoEstudiante)
+        cargueEstudiantes()
         setModo('Registrar')
     }
 
@@ -92,7 +75,7 @@ export const EstudiantesApp = () => {
             /> <br/>
 
             <BarraBusqueda
-                filtrar = {(termino) => {modLista(termino)} }
+                filtrar = {(facultad, cantidad) => {filtarEstudiantes(facultad, cantidad)} }
             /> <br/>
 
             <TablaEstudiante 

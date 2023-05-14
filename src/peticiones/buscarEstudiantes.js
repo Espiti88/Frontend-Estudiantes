@@ -1,6 +1,6 @@
-export const getEstudiantes = async() => {
+export const buscarEstudiantes = async(facultad, tamaño) => {
 
-    const url = 'http://localhost:8080/estudiante/todos'
+    const url = 'http://localhost:8080/estudiante/buscar?facultad=' + facultad + '&size=' + tamaño
     const resp = await fetch(url)
     const data = await resp.json();
 
